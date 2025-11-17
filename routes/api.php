@@ -1,4 +1,3 @@
-<!-- importar todos los controladores -->
 <?php
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Auditorias-solo create
     Route::post('auditorias', [AuditoriaController::class, 'store']);
     Route::get('auditorias', [AuditoriaController::class, 'index']);
+    Route::get('auditorias/auditor/{id}/detalle', [AuditoriaController::class, 'auditoriasPorAuditor']);
     //Bloques-Crud completo
     Route::apiResource('bloques', BloqueController::class);
     //apiResource es para no crear una ruta para cada metodo CRUD como abajo

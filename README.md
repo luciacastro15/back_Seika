@@ -68,6 +68,8 @@ php artisan migrate
 php artisan migrate:fresh 
 php artisan migrate:status
 php artisan config:clear
+php artisan optimize:clear
+php artisan route:clear
 composer require laravel/sanctum // para autenticaciones y tokens
 php artisan install:api
 
@@ -77,3 +79,4 @@ php artisan make:controller AuthenticationController
 
 
 php artisan make:migration remove_fecha_from_auditorias --table=auditorias
+

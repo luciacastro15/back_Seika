@@ -13,4 +13,8 @@ class Bloque extends Model
     protected $fillable = [
         'nombre',
     ];
+    public function preguntas()
+    {
+        return $this->hasMany(Pregunta::class, 'bloque_id');
+    }
 }

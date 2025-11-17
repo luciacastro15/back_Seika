@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
-    //POST /api/auth/login
     public function login(Request $request)
     {
-        //
         $credenciales = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
@@ -22,18 +20,22 @@ class AuthenticationController extends Controller
             return response()->json([
                 'message' => 'Credenciales inválidas'
             ], 401);
-            //401: Unauthorized
         }
         $usuario = Auth::user();
         $token = $usuario->createToken('token-auth')->plainTextToken;
         return response()->json([
+            'usuario' => [
+                'id' => $usuario->id,
+                'nombre' => $usuario->nombre,
+                'email' => $usuario->email,
+                'rol_id' => $usuario->rol_id
+            ],
             'access_token' => $token,
             'token_type' => 'Bearer'
         ]);
     }
     public function registro(Request $request)
     {
-        ////POST /api/auth/registro
         $datosValidados = $request->validate([
             'nombre' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:usuarios',
@@ -41,7 +43,6 @@ class AuthenticationController extends Controller
             'rol_id' => 'required|integer'
         ]);
         $datosValidados['password'] = Hash::make($datosValidados['password']);
-        //hace refrencia al modelo Usuario.php
         $usuario = Usuario::create($datosValidados);
         $token = $usuario->createToken('token-auth')->plainTextToken;
         return response()->json([
@@ -52,7 +53,6 @@ class AuthenticationController extends Controller
     }
     public function logout(Request $request)
     {
-        //POST /api/auth/logout
         $request->user()->currentAccessToken()->delete();
         return response()->json([
             'message' => 'Sesión cerrada correctamente'

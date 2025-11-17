@@ -18,4 +18,8 @@ class Pregunta extends Model
     {
         return $this->belongsTo(Bloque::class, 'bloque_id');
     }
+    public function respuestas()
+    {
+        return $this->hasMany(Respuesta::class, 'pregunta_id');
+    }
 }

@@ -29,4 +29,8 @@ class Auditoria extends Model
     {
         return $this->belongsTo(Concesionario::class, 'concesionario_id');
     }
+    public function respuestas()
+    {
+        return $this->hasMany(Respuesta::class, 'auditoria_id');
+    }   
 }
