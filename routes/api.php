@@ -2,16 +2,16 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{
-    UsuarioController, 
-    RolController, 
-    AuditoriaController, 
+    UsuarioController,
+    RolController,
+    AuditoriaController,
     BloqueController,
     ConcesionarioController,
     PreguntaController,
     RespuestaController,
     AuthenticationController
 };
-Route::get('health', function() {
+Route::get('health', function () {
     return response()->json(['mensaje' => true]);
 });
 
@@ -41,12 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('bloques', BloqueController::class);
     //apiResource es para no crear una ruta para cada metodo CRUD como abajo
     //Concesionarios-Crud completo
-    Route::middleware('role:admin, jefe_concesionario')->group(function () {
-        Route::get('concesionarios', [ConcesionarioController::class, 'index']);
-        Route::post('concesionarios', [ConcesionarioController::class, 'store']);
-        Route::put('concesionarios/{id}', [ConcesionarioController::class, 'update']);
-        Route::delete('concesionarios/{id}', [ConcesionarioController::class, 'destroy']);
-    });
+    Route::get('concesionarios', [ConcesionarioController::class, 'index']);
+    Route::post('concesionarios', [ConcesionarioController::class, 'store']);
+    Route::put('concesionarios/{id}', [ConcesionarioController::class, 'update']);
+    Route::delete('concesionarios/{id}', [ConcesionarioController::class, 'destroy']);
     //Preguntas-Crud completo
     Route::apiResource('preguntas', PreguntaController::class);
     //Respuestas-Crud completo

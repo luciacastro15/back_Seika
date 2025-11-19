@@ -13,8 +13,8 @@ class ConcesionarioController extends Controller
      */
     public function index()
     {
-        $concesionarios = Concesionario::all();
-        return response()->json($concesionarios);
+        $concesionarios = Concesionario::with("jefe")->get();
+        return response()->json(["concesionarios"=>$concesionarios]);
     }
 
     /**
