@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewUserRegisterMail;
+use App\Mail\WelcomeUserMail;
 
 class AuthenticationController extends Controller
 {
@@ -44,6 +47,9 @@ class AuthenticationController extends Controller
         ]);
         $datosValidados['password'] = Hash::make($datosValidados['password']);
         $usuario = Usuario::create($datosValidados);
+        Mail::to($usuario->email)->send(new WelcomeUserMail($usuario));
+        Mail::to(env('ADMIN_EMAIL'))->send(new NewUserRegisterMail($usuario));
+
         $token = $usuario->createToken('token-auth')->plainTextToken;
         return response()->json([
             'usuario' => $usuario,

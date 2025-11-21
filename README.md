@@ -86,3 +86,14 @@ php artisan make:migration remove_fecha_from_auditorias --table=auditorias
 git add .
 git commit -m "modificaciones en las rutas"
 git push -u origin master
+
+
+
+
+
+
+
+
+
+php artisan make:mail WelcomeUserMail --markdown=emails.welcome_user
+php artisan make:mail NewUserRegisterMail --markdown=emails.new_user_register
