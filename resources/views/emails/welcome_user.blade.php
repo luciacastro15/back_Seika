@@ -58,7 +58,7 @@
             <h1>¡Bienvenido a Seika Audit!</h1>
         </div>
         <div class="content">
-            <p>Hola <strong>{{ $user->name }}</strong>,</p>
+            <p>Hola <strong>{{ $usuario->nombre }}</strong>,</p>
             <p>Gracias por registrarte en <strong>Seika Audit</strong>. Estamos encantados de tenerte con nosotros.</p>
             <p>Con nuestra plataforma podrás gestionar tus auditorías y concesionarios de forma más clara, profesional y eficiente.</p>
             <p>Haz clic en el siguiente botón para comenzar:</p>

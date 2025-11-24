@@ -27,8 +27,13 @@ class ConcesionarioController extends Controller
             'ubicacion' => 'required|string|max:255',
             'telefono' => 'required|string|max:20',
             'marca' => 'required|string|max:100',
+            'img' => 'required|image|max:2048',
             'jefe_id' => 'required|integer',
         ]);
+        if ($request->hasFile("img")) {
+            $path = $request->file("img")->store("concesionarios", "public");
+            $data ["img"] = "storage/".$path;
+        }
         $concesionario = Concesionario::create($data);
         return response()->json($concesionario, 201);
     }

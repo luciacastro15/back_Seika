@@ -15,7 +15,8 @@ class Concesionario extends Model
         'ubicacion',
         'telefono',
         'marca',
-        'jefe_id',
+        'img',
+        'jefe_id'    
     ];
     public function jefe()
     {

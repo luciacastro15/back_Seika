@@ -57,17 +57,31 @@ class AuditoriaController extends Controller
     }
     public function auditoriasPorAuditor($auditorId)
     {
-       $auditorias = Auditoria::with([
-        'concesionario',
-        'jefe',
-        'auditor',
-        'respuestas.pregunta.bloque'
-       ]) -> where('auditor_id', $auditorId)->get();
-       return response()->json([
-        'auditorias' => $auditorias,
-        'auditor_id' => $auditorId
-       ]);
+        $auditorias = Auditoria::with([
+            'concesionario',
+            'jefe',
+            'auditor',
+            'respuestas.pregunta.bloque'
+        ])->where('auditor_id', $auditorId)->get();
+        return response()->json([
+            'auditorias' => $auditorias,
+            'auditor_id' => $auditorId
+        ]);
     }
 
-    
+    public function auditoriasPorJefe($jefeId)
+    {
+        $auditorias = Auditoria::with([
+            'concesionario',
+            'jefe',
+            'auditor',
+            'respuestas.pregunta.bloque'
+        ])->where('jefe_id', $jefeId)->get();
+        return response()->json([
+            'auditorias' => $auditorias,
+            'jefe_id' => $jefeId
+        ]);
+    }
+
+
 }

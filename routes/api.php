@@ -1,4 +1,6 @@
 <?php
+use App\Mail\NewUserRegisterMail;
+use App\Mail\WelcomeUserMail;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{
@@ -37,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('auditorias', [AuditoriaController::class, 'store']);
     Route::get('auditorias', [AuditoriaController::class, 'index']);
     Route::get('auditorias/auditor/{id}/detalle', [AuditoriaController::class, 'auditoriasPorAuditor']);
+    Route::get('auditorias/jefe/{id}', [AuditoriaController::class, 'auditoriasPorJefe']);
+
     //Bloques-Crud completo
     Route::apiResource('bloques', BloqueController::class);
     //apiResource es para no crear una ruta para cada metodo CRUD como abajo
@@ -49,4 +53,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('preguntas', PreguntaController::class);
     //Respuestas-Crud completo
     Route::apiResource('respuestas', RespuestaController::class);
+});
+Route::get("/test-email", function () {
+    $usuario = \App\Models\Usuario::first();
+    Mail::to($usuario->email)->send(new WelcomeUserMail($usuario));
+    Mail::to(env("ADMIN_EMAIL"))->send(new NewUserRegisterMail($usuario));
+    return "correos enviados";
 });

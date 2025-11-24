@@ -50,9 +50,9 @@
         <div class="content">
             <p>Se ha registrado un nuevo usuario en <strong>Seika Audit</strong>:</p>
             <ul>
-                <li><strong>Nombre:</strong> {{ $user->name }}</li>
-                <li><strong>Email:</strong> {{ $user->email }}</li>
-                <li><strong>Fecha de registro:</strong> {{ $user->created_at->format('d/m/Y H:i') }}</li>
+                <li><strong>Nombre:</strong> {{ $usuario->nombre }}</li>
+                <li><strong>Email:</strong> {{ $usuario->email }}</li>
+                <li><strong>Fecha de registro:</strong> {{ $usuario->created_at->format('d/m/Y H:i') }}</li>
             </ul>
             <p>Ya puedes revisar sus datos en el panel de administración.</p>
         </div>

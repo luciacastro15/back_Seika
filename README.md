@@ -79,7 +79,7 @@ php artisan make:controller AuthenticationController
 
 
 php artisan make:migration remove_fecha_from_auditorias --table=auditorias
-
+php artisan make:migration add_imgs_to_concesionarios --table=concesionarios
 
 
 
@@ -87,6 +87,8 @@ git add .
 git commit -m "modificaciones en las rutas"
 git push -u origin master
 
+<!-- para la fotos -->
+php artisan storage:link
 
 
 
