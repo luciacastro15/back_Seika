@@ -14,7 +14,7 @@ class ConcesionarioController extends Controller
     public function index()
     {
         $concesionarios = Concesionario::with("jefe")->get();
-        return response()->json(["concesionarios"=>$concesionarios]);
+        return response()->json(["concesionarios" => $concesionarios]);
     }
 
     /**
@@ -32,7 +32,7 @@ class ConcesionarioController extends Controller
         ]);
         if ($request->hasFile("img")) {
             $path = $request->file("img")->store("concesionarios", "public");
-            $data ["img"] = "storage/".$path;
+            $data["img"] = "storage/" . $path;
         }
         $concesionario = Concesionario::create($data);
         return response()->json($concesionario, 201);
@@ -56,19 +56,32 @@ class ConcesionarioController extends Controller
     public function update(Request $request, string $id)
     {
         $concesionario = Concesionario::find($id);
+
         if (!$concesionario) {
             return response()->json(['mensaje' => 'Concesionario no encontrado'], 404);
         }
+
+        // Validación
         $data = $request->validate([
             'nombre' => 'sometimes|required|string|max:255',
             'ubicacion' => 'sometimes|required|string|max:255',
             'telefono' => 'sometimes|required|string|max:20',
             'marca' => 'sometimes|required|string|max:100',
             'jefe_id' => 'sometimes|required|integer',
+            'img' => 'sometimes|image|max:2048'  // OPCIONAL
         ]);
+
+        // Si viene imagen, procesarla
+        if ($request->hasFile("img")) {
+            $path = $request->file("img")->store("concesionarios", "public");
+            $data["img"] = "storage/" . $path;
+        }
+        // Actualizar datos
         $concesionario->update($data);
+
         return response()->json($concesionario);
     }
+
 
     /**
      * Remove the specified resource from storage.
