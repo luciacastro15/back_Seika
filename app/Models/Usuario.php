@@ -18,6 +18,7 @@ class Usuario extends Authenticatable
         'email',
         'password',
         'rol_id',
+        'plan'
     ];
     //para coger los roles de la bbdd
     public function rol()
@@ -29,4 +30,21 @@ class Usuario extends Authenticatable
         return $this->rol ? $this->rol->nombre : null;
         //? es como un if ternario: si el usuario tiene rol, devuelve el nombre del rol, si no, devuelve null
     }
+
+    public function concesionarios()
+    {
+        return $this->hasMany(Concesionario::class, 'jefe_id');
+    }
+    public function can_create_concesionario()
+    {
+        if ($this->rol->nombre !== "jefe_concesionario") {
+            return false;
+        }
+        if ($this->plan === "continuo") {
+            return true;
+        }
+        return $this->concesionarios()->count() === 0;
+    }
+
+
 }

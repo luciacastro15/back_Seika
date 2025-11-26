@@ -13,7 +13,12 @@ class ConcesionarioController extends Controller
      */
     public function index()
     {
-        $concesionarios = Concesionario::with("jefe")->get();
+        $user = auth()->user();
+        if ($user->rol->nombre === "jefe_concesionario") {
+            $concesionarios = Concesionario::with("jefe")->where("jefe_id", $user->id)->get();
+        } elseif ($user->rol->nombre === "admin" || $user->rol->nombre === "auditor") {
+            $concesionarios = Concesionario::with("jefe")->get();
+        }
         return response()->json(["concesionarios" => $concesionarios]);
     }
 
@@ -22,6 +27,14 @@ class ConcesionarioController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+        // dd($user->plan, $user->rol_nombre);
+        if (!$user->can_create_concesionario()) {
+            return response()->json([
+                "message" => "tu plan solo permite 1"
+
+            ], 403);
+        }
         $data = $request->validate([
             'nombre' => 'required|string|max:255',
             'ubicacion' => 'required|string|max:255',

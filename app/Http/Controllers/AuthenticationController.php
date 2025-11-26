@@ -31,7 +31,8 @@ class AuthenticationController extends Controller
                 'id' => $usuario->id,
                 'nombre' => $usuario->nombre,
                 'email' => $usuario->email,
-                'rol_id' => $usuario->rol_id
+                'rol_id' => $usuario->rol_id,
+                'plan' => $usuario->plan
             ],
             'access_token' => $token,
             'token_type' => 'Bearer'
