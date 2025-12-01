@@ -54,6 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //Respuestas-Crud completo
     Route::apiResource('respuestas', RespuestaController::class);
     Route::patch("/mi-plan", [UsuarioController::class, 'update_plan']);
+    Route::delete("/usuarios/{id}", [UsuarioController::class, 'destroy']);
+    Route::get("/usuarios", [UsuarioController::class, 'index']);
 });
 Route::get("/test-email", function () {
     $usuario = \App\Models\Usuario::first();
