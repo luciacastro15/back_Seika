@@ -27,7 +27,7 @@ class UsuarioController extends Controller
     }
 
     public function index() {
-        $usuarios = Usuario::all();
+        $usuarios = Usuario::with("rol")->get();
         return response()->json($usuarios, 200);
     }
     

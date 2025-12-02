@@ -99,3 +99,17 @@ php artisan storage:link
 
 php artisan make:mail WelcomeUserMail --markdown=emails.welcome_user
 php artisan make:mail NewUserRegisterMail --markdown=emails.new_user_register
+
+----------------------------------
+
+1. api.php : a este archivo apunta el front para obtener, crear, modificar y eliminar datos
+    - rutas: los caminos que tomaa el front para cosas concretas(ej: /auth/login para crear un login)
+    - Hay rutas protegds (middleware): estas rutas no son accesibles por cualquiera. algunas solo son para personas logeadas, otras para personas con x rol...
+
+2. contollers : son clases con metodos que usamos para el manejo de datos
+    - valida datos que enviamos desde front/postman, ejecuta consultas de bbdd, gestiona errores... (centro logico)
+    - el controlador tiene diferentes metodos para diferentes tareas, cada metodo devuelve respuesta en formato json al front
+
+react-> carpeta api -> api.php(middleware) -> metodo del controlador -> bbdd -> respuesta json ->react
+    - carpe
+
